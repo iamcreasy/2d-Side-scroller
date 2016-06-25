@@ -1,0 +1,9 @@
+apply plugin : "java"
+
+jar.archiveName = "GFrameEngine.jar"
+
+defaultTasks 'build'
+
+sourceSets{
+	main.java.srcDir "src"
+}
