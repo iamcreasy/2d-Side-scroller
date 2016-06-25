@@ -88,6 +88,15 @@ public class GFrame {
 
         // Cleanup
     }
+	
+	ArrayList<GameResource> gameResourceList = new ArrayList<>();
+
+    public void add(GameResource gameResource){
+        if(gameResource == null)
+            throw new NullPointerException();
+        else
+            gameResourceList.add(gameResource);
+    }
 
     private void updateState() {
 
