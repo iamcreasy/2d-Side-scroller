@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class GFrame {
     Dimension dimension;
