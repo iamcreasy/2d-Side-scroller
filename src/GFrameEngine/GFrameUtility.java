@@ -40,9 +40,9 @@ public class GFrameUtility {
         return third;
     }
 
-    public static void sleep(long nanoSec) {
+    public static void sleep(long miliSec) {
         try {
-            Thread.sleep(nanoSec);
+            Thread.sleep(miliSec);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
