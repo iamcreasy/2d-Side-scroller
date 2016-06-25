@@ -99,10 +99,16 @@ public class GFrame {
     }
 
     private void updateState() {
-
+        for(GameResource gameResource : gameResourceList)
+            gameResource.update();
     }
 
     private void renderState(Graphics2D g) {
+        // Clean the Canvas before redrawing
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, (int)dimension.getWidth(), (int)dimension.getHeight());
 
+        for(GameResource gameResource : gameResourceList)
+            gameResource.render(g);
     }
 }
