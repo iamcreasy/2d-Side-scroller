@@ -74,11 +74,7 @@ public class GFrame {
 
             // Game loop Wait
             if(nextUpdateTime > System.currentTimeMillis()){
-                try {
-                    Thread.sleep(nextUpdateTime - System.currentTimeMillis());  // Adding nano(deltaNano) causes undershot
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                GFrameUtility.sleep(nextUpdateTime - System.currentTimeMillis()); // Adding nano(deltaNano) causes undershot
             }
 
             // Game Title Update
