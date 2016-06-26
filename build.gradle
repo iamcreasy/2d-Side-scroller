@@ -1,5 +1,10 @@
 apply plugin : "java"
 
+allprojects {
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+}
+
 jar.archiveName = "GFrameEngine.jar"
 
 defaultTasks 'build'
