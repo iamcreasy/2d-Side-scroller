@@ -32,13 +32,13 @@ public class GFrame {
         canvas.setLocation(0,0);
         jFrame.add(canvas);
         canvas.requestFocus();
+		
+		// Setup BufferStrategy
+        canvas.createBufferStrategy(2);
+        BufferStrategy bufferStrategy = canvas.getBufferStrategy();
     }
 
     public void start(){
-        // Setup BufferStrategy
-        canvas.createBufferStrategy(2);
-        BufferStrategy bufferStrategy = canvas.getBufferStrategy();
-
         // Initialize game loop variabless
         boolean running = true;
         long currentTime = System.currentTimeMillis();
