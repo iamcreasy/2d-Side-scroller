@@ -12,7 +12,7 @@ public class GFrame {
     public Canvas canvas;
     String gameName;
 
-    public void start(){
+    public GFrame() {
         gameName = "GameTitle";
         dimension = new Dimension(640, 480);
         jFrame = new JFrame();
@@ -32,7 +32,9 @@ public class GFrame {
         canvas.setLocation(0,0);
         jFrame.add(canvas);
         canvas.requestFocus();
+    }
 
+    public void start(){
         // Setup BufferStrategy
         canvas.createBufferStrategy(2);
         BufferStrategy bufferStrategy = canvas.getBufferStrategy();
