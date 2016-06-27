@@ -10,6 +10,7 @@ public class GFrame {
     Dimension dimension;
     public JFrame jFrame;
     public Canvas canvas;
+	BufferStrategy bufferStrategy;
     String gameName;
 
     public GFrame() {
@@ -33,9 +34,9 @@ public class GFrame {
         jFrame.add(canvas);
         canvas.requestFocus();
 		
-		// Setup BufferStrategy
+	// Setup BufferStrategy
         canvas.createBufferStrategy(2);
-        BufferStrategy bufferStrategy = canvas.getBufferStrategy();
+        bufferStrategy = canvas.getBufferStrategy();
     }
 
     public void start(){
