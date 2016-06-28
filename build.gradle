@@ -12,3 +12,7 @@ defaultTasks 'build'
 sourceSets{
 	main.java.srcDir "src"
 }
+
+jar {
+    manifest.attributes "Main-Class":"Game.GameMain"
+}
