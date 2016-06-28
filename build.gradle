@@ -5,7 +5,7 @@ allprojects {
     targetCompatibility = 1.8
 }
 
-jar.archiveName = "GFrameEngine.jar"
+jar.archiveName = "Game.jar"
 
 defaultTasks 'build'
 
