@@ -7,34 +7,51 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class GFrame {
-    Dimension dimension;
-    public JFrame jFrame;
+    private String gameTitle;
+
+    public static Dimension dimension;
+    private Dimension crtJfrmDim, crtCnvsDim;
+
+    public boolean fullscreen = false;
+
+    private JFrame jFrame;
     public Canvas canvas;
-	BufferStrategy bufferStrategy;
-    String gameName;
+    BufferStrategy bufferStrategy;
 
     public GFrame() {
-        gameName = "GameTitle";
-        dimension = new Dimension(640, 480);
+        gameTitle = "GameTitle";
+        dimension = new Dimension(600, 600);
         jFrame = new JFrame();
-
-        // setup JFrame
-        jFrame.setTitle(gameName);
-        jFrame.setSize(dimension);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setLayout(null);
-        jFrame.setLocationRelativeTo(null);
-        jFrame.setResizable(true);
-        jFrame.setVisible(true);
-
-        // setup Canvas
         canvas = new Canvas();
-        canvas.setSize(dimension);
-        canvas.setLocation(0,0);
-        jFrame.add(canvas);
-        canvas.requestFocus();
-		
-	// Setup BufferStrategy
+
+        if(fullscreen) {
+            // correct dimension
+
+            // Fullscreen jFrame and canvas
+
+        } else
+        {
+            // correct dimension
+            crtJfrmDim = new Dimension((int) dimension.getWidth() + 6, (int) dimension.getHeight() + 35); // Insets[top=32,left=3,bottom=3,right=3]
+            crtCnvsDim = new Dimension((int) dimension.getWidth() + 6, (int) dimension.getHeight() + 35); // Insets[top=32,left=3,bottom=3,right=3]
+
+            // Windowed jFrame and Canvas
+            jFrame.setTitle(gameTitle);
+            jFrame.setSize(crtJfrmDim);
+            jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            jFrame.setLocationRelativeTo(null);
+            jFrame.setUndecorated(false);
+            jFrame.setLayout(null);
+            jFrame.setResizable(false);
+            jFrame.setVisible(true);
+
+            canvas.setSize(crtCnvsDim);
+            canvas.setLocation(0,0);
+            jFrame.add(canvas);
+            canvas.requestFocus();
+        }
+
+        // Setup BufferStrategy for canvas
         canvas.createBufferStrategy(2);
         bufferStrategy = canvas.getBufferStrategy();
     }
@@ -59,7 +76,7 @@ public class GFrame {
 
             // Update logic
             updateState();
-            title = title.concat(gameName + " U " + (System.currentTimeMillis() - updateStartTime) + " + ");
+            title = title.concat(gameTitle + " U " + (System.currentTimeMillis() - updateStartTime) + " + ");
 
             // Render logic
             renderStartTime = System.currentTimeMillis();
