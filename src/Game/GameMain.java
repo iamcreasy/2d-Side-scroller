@@ -6,7 +6,10 @@ public class GameMain {
     public static void main(String[] args) {
         GFrame game = new GFrame();
 
-        game.add(new RedBox("The RedBox", 100, 100));
+        BoxMoveTest b = new BoxMoveTest("Box", 100, 100);
+        game.add(b);
+        game.canvas.addKeyListener(b);
+//        game.add(new WindowedCanvasTest(GFrame.dimension));
 
         game.start();
     }
