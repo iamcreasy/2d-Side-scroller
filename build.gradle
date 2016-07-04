@@ -7,7 +7,7 @@ allprojects {
 
 jar.archiveName = "Game.jar"
 
-defaultTasks 'build'
+defaultTasks 'run'
 
 sourceSets{
 	main.java.srcDir "src"
@@ -15,4 +15,9 @@ sourceSets{
 
 jar {
     manifest.attributes "Main-Class":"Game.GameMain"
+}
+
+task run(type: Exec, dependsOn: jar){	
+	executable 'java'
+	args '-jar', "$jar.archivePath"
 }
