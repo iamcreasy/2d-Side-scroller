@@ -5,29 +5,48 @@ import Engine.GameResource;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
 
-public class BoxMoveTest implements GameResource, KeyListener {
+public class BoxMoveTest implements GameResource, KeyListener, MouseMotionListener {
     String name;
+    Color c;
     boolean up, down, left, right;
-    int startLocX, startLocY;
-    Rectangle2D rect = new Rectangle2D.Double(100, 100, 50, 50);
+    int locX, locY, sizeX, sizeY;
+    Rectangle2D rect;
 
-    public BoxMoveTest(String name, int startLocX, int startLocY) {
+    public BoxMoveTest(String name, int locX, int locY, int sizeX, int sizeY, Color c) {
         this.name = name;
-        this.startLocX = startLocX;
-        this.startLocY = startLocY;
+        this.c = c;
+        this.locX = locX;
+        this.locY = locY;
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
+
+        rect = new Rectangle2D.Double(this.locX, this.locY, this.sizeX, this.sizeY);
     }
 
     @Override
     public void update() {
-        rect.setRect(startLocX, startLocY, 50, 50);
+        rect.setRect(locX, locY, sizeX, sizeY);
     }
 
     @Override
     public void render(Graphics2D g) {
-        g.setColor(Color.RED);
+        g.setColor(c);
         g.fill(rect);
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        locX = e.getX()-25;
+        locY = e.getY()-25;
     }
 
     @Override
@@ -38,19 +57,17 @@ public class BoxMoveTest implements GameResource, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_UP){
-            startLocY -= 1;
+            locY -= 1;
         }
         else if(e.getKeyCode() == KeyEvent.VK_DOWN){
-            startLocY += 1;
+            locY += 1;
         }
         else if(e.getKeyCode() == KeyEvent.VK_LEFT){
-            startLocX -= 1;
+            locX -= 1;
         }
         else if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-            startLocX += 1;
+            locX += 1;
         }
-
-        System.out.println("x " + startLocX + " ,y " + startLocY);
     }
 
     @Override
