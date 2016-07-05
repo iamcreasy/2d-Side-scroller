@@ -3,6 +3,5 @@ package Engine;
 import java.awt.*;
 
 public interface GameResource {
-    public void update();
-    public void render(Graphics2D g);
+    public void update(float tpf, Graphics2D g);
 }
