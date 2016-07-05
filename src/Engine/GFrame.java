@@ -32,22 +32,24 @@ public class GFrame {
         } else
         {
             // correct dimension
-            crtJfrmDim = new Dimension((int) dimension.getWidth() + 6, (int) dimension.getHeight() + 35); // Insets[top=32,left=3,bottom=3,right=3]
-            crtCnvsDim = new Dimension((int) dimension.getWidth() + 6, (int) dimension.getHeight() + 35); // Insets[top=32,left=3,bottom=3,right=3]
+//            crtJfrmDim = new Dimension((int) dimension.getWidth() + 6, (int) dimension.getHeight() + 35); // Insets[top=32,left=3,bottom=3,right=3]
+//            crtCnvsDim = new Dimension((int) dimension.getWidth() + 6, (int) dimension.getHeight() + 35); // Insets[top=32,left=3,bottom=3,right=3]
 
             // Windowed jFrame and Canvas
             jFrame.setTitle(gameTitle);
-            jFrame.setSize(crtJfrmDim);
+            jFrame.setSize(dimension);
             jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             jFrame.setLocationRelativeTo(null);
             jFrame.setUndecorated(false);
-            jFrame.setLayout(null);
             jFrame.setResizable(false);
             jFrame.setVisible(true);
 
-            canvas.setSize(crtCnvsDim);
-            canvas.setLocation(0,0);
+            canvas.setSize(dimension);
+            canvas.setPreferredSize(dimension);
+            canvas.setMaximumSize(dimension);
+            canvas.setMinimumSize(dimension);
             jFrame.add(canvas);
+            jFrame.pack();
             canvas.requestFocus();
         }
 
