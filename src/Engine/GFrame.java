@@ -3,11 +3,14 @@ package Engine;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class GFrame {
-    private String gameTitle;
+    public String gameTitle;
+    private String tempTitle;
+
+    private long gameStartTime;
+    private float tpf;
 
     public static Dimension dimension;
     private Dimension crtJfrmDim, crtCnvsDim;
@@ -19,6 +22,7 @@ public class GFrame {
     BufferStrategy bufferStrategy;
 
     public GFrame() {
+        gameStartTime = System.nanoTime();
         gameTitle = "GameTitle";
         dimension = new Dimension(600, 600);
         jFrame = new JFrame();
@@ -40,6 +44,7 @@ public class GFrame {
             jFrame.setSize(dimension);
             jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             jFrame.setLocationRelativeTo(null);
+//            jFrame.setLayout(null);
             jFrame.setUndecorated(false);
             jFrame.setResizable(false);
             jFrame.setVisible(true);
@@ -56,57 +61,42 @@ public class GFrame {
         // Setup BufferStrategy for canvas
         canvas.createBufferStrategy(2);
         bufferStrategy = canvas.getBufferStrategy();
+
+        tpf = (float)(System.nanoTime() -  gameStartTime)/1000000000;
     }
 
     public void start(){
         // Initialize game loop variabless
         boolean running = true;
-        long currentTime = System.currentTimeMillis();
-        long gameLoopCount = 0;
-
-        long systemRefreshRate = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getRefreshRate();
-        long deltaMili = 1000 / systemRefreshRate;
-        long deltaNano = (long)(((1000 % systemRefreshRate) / (double)systemRefreshRate ) * 1_000_000); // 1 mili = 1e6 nano; 1s = 1e9 nano
-        DecimalFormat df = new DecimalFormat("#.##");
-        long updateStartTime, nextUpdateTime, renderStartTime;
+        long intervalTime = System.nanoTime();
+        long loopStartTime;
+        long loopCount = 0;
 
         // Game loop
         while (running){
-            String title = "";
-            updateStartTime = System.currentTimeMillis();
-            nextUpdateTime = System.currentTimeMillis() + deltaMili;
-
-            // Update logic
-            updateState();
-            title = title.concat(gameTitle + " U " + (System.currentTimeMillis() - updateStartTime) + " + ");
+            tempTitle = "";
+            loopStartTime = System.nanoTime();
 
             // Render logic
-            renderStartTime = System.currentTimeMillis();
-
             Graphics2D g = (Graphics2D)bufferStrategy.getDrawGraphics();
-
-            renderState(g);
-
+            update(tpf, g);
             g.dispose();
             bufferStrategy.show();
-            title = title.concat("R " + (System.currentTimeMillis() - renderStartTime) + " / ");
 
             // Game loop counter Update
-            gameLoopCount++;
-            title = title.concat(df.format(1000 / (double)systemRefreshRate) + " ; G " + gameLoopCount + " / S " + systemRefreshRate);
-
-            // Game loop Wait
-            if(nextUpdateTime > System.currentTimeMillis()){
-                GFrameUtility.sleep(nextUpdateTime - System.currentTimeMillis()); // Adding nano(deltaNano) causes undershot
-            }
+            loopCount++;
 
             // Game Title Update
-            if(System.currentTimeMillis() - currentTime > 1000) {
-                jFrame.setTitle(title);
-                currentTime = System.currentTimeMillis();
-                gameLoopCount = 0;
+            if(System.nanoTime() - intervalTime > 1000000000) {
+                tempTitle = tempTitle.concat(gameTitle + " FPS : " + String.valueOf(loopCount));
+                jFrame.setTitle(tempTitle);
+                loopStartTime = System.nanoTime();
+                loopCount = 0;
+                intervalTime = System.nanoTime();
             }
 
+            tpf = (float)(System.nanoTime() - loopStartTime) / 1000000000;
+//            System.out.printf("%.10f\n", tpf);
         }
 
         // Cleanup
@@ -121,17 +111,11 @@ public class GFrame {
             gameResourceList.add(gameResource);
     }
 
-    private void updateState() {
-        for(GameResource gameResource : gameResourceList)
-            gameResource.update();
-    }
-
-    private void renderState(Graphics2D g) {
-        // Clean the Canvas before redrawing
+    private void update(float tpf, Graphics2D g) {
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, (int)dimension.getWidth(), (int)dimension.getHeight());
 
         for(GameResource gameResource : gameResourceList)
-            gameResource.render(g);
+            gameResource.update(tpf, g);
     }
 }
