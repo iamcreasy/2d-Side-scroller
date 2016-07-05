@@ -29,11 +29,7 @@ public class WindowedCanvasTest implements GameResource {
     }
 
     @Override
-    public void update() {
-    }
-
-    @Override
-    public void render(Graphics2D g) {
+    public void update(float tpf, Graphics2D g) {
         g.setColor(Color.RED);
         g.drawLine(0, ay1, ax2, 0);
         ay1 -= 1;
