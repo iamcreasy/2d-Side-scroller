@@ -36,6 +36,8 @@ public class BoxMoveTest implements GameResource, KeyListener, MouseMotionListen
     public void render(Graphics2D g) {
         g.setColor(c);
         g.fill(rect);
+        g.setColor(Color.BLACK);
+        g.drawString(locX + "," + locY, 0, 10); // Check, why I have to set it 0,10 instead of 0,0
     }
 
     @Override
