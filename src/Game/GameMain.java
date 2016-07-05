@@ -11,6 +11,7 @@ public class GameMain {
         BoxMoveTest b = new BoxMoveTest("Box", 100, 100, 50, 50, Color.RED);
         game.add(b);
         game.canvas.addKeyListener(b);
+        game.canvas.addMouseMotionListener(b);
 //        game.add(new WindowedCanvasTest(GFrame.dimension));
 
         game.start();

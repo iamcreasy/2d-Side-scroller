@@ -47,8 +47,8 @@ public class BoxMoveTest implements GameResource, KeyListener, MouseMotionListen
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        locX = e.getX()-25;
-        locY = e.getY()-25;
+        locX = e.getX();
+        locY = e.getY();
     }
 
     @Override
