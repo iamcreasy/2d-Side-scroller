@@ -13,7 +13,6 @@ public class BoxMoveTest implements GameResource, KeyListener, MouseMotionListen
     Color c;
     boolean up, down, left, right;
     float locX, locY, sizeX, sizeY;
-    float tpf;
 
     public BoxMoveTest(String name, float locX, float locY, float sizeX, float sizeY, Color c) {
         this.name = name;
@@ -26,8 +25,6 @@ public class BoxMoveTest implements GameResource, KeyListener, MouseMotionListen
 
     @Override
     public void update(float tpf, Graphics2D g) {
-        this.tpf = tpf;
-
         g.setColor(c);
         g.fillRect((int)locX, (int)locY, (int)sizeX, (int)sizeY);
 
