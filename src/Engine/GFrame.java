@@ -8,6 +8,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GFrame {
     public String gameTitle;
@@ -72,13 +73,15 @@ public class GFrame {
     public void start(){
         // Initialize game loop variabless
         boolean running = true;
-        long intervalTime = System.nanoTime();
+        long interval = System.nanoTime();
         long loopStartTime;
         long loopCount = 0;
+        long fps = 0;
 
         // Game loop
         while (running){
             tempTitle = "";
+            tempTitle = tempTitle.concat(gameTitle);
             loopStartTime = System.nanoTime();
 
             // Render logic
@@ -91,21 +94,22 @@ public class GFrame {
             loopCount++;
 
             // Game Title Update
-            if(System.nanoTime() - intervalTime > 1000000000) {
-                tempTitle = tempTitle.concat(gameTitle + " FPS : " + String.valueOf(loopCount));
-                jFrame.setTitle(tempTitle);
-                loopStartTime = System.nanoTime();
+            if(System.nanoTime() - interval > 1000000000) {
+                fps = loopCount;
                 loopCount = 0;
-                intervalTime = System.nanoTime();
+                interval = System.nanoTime();
             }
+            tempTitle = tempTitle.concat(" FPS " + fps + " ; " + gameResourceList.size());
+            jFrame.setTitle(tempTitle);
 
             tpf = (float)(System.nanoTime() - loopStartTime) / 1000000000;
         }
 
         // Cleanup
     }
-	
-	ArrayList<GameResource> gameResourceList = new ArrayList<>();
+
+//	ArrayList<GameResource> gameResourceList = new ArrayList<>();
+    CopyOnWriteArrayList<GameResource> gameResourceList = new CopyOnWriteArrayList<>();
 
     public void add(GameResource gameResource){
         if(gameResource == null)
