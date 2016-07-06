@@ -2,6 +2,10 @@ package Engine;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
@@ -96,7 +100,6 @@ public class GFrame {
             }
 
             tpf = (float)(System.nanoTime() - loopStartTime) / 1000000000;
-//            System.out.printf("%.10f\n", tpf);
         }
 
         // Cleanup
@@ -107,8 +110,32 @@ public class GFrame {
     public void add(GameResource gameResource){
         if(gameResource == null)
             throw new NullPointerException();
-        else
+        else {
+            // add GameResource Object
             gameResourceList.add(gameResource);
+
+            // add Listeners implementation to Canvas
+            if(gameResource instanceof KeyListener)
+                canvas.addKeyListener((KeyListener)gameResource);
+
+            if(gameResource instanceof MouseListener)
+                canvas.addMouseListener((MouseListener)gameResource);
+
+            if(gameResource instanceof MouseMotionListener)
+                canvas.addMouseMotionListener((MouseMotionListener)gameResource);
+
+            if(gameResource instanceof MouseWheelListener)
+                canvas.addMouseWheelListener((MouseWheelListener)gameResource);
+        }
+    }
+
+    public void add(GameResource[] gameResource){
+        if(gameResource == null)
+            throw new NullPointerException();
+        else
+            for(int i = 0; i<gameResource.length; i++){
+                add(gameResource[i]);
+            }
     }
 
     private void update(float tpf, Graphics2D g) {
