@@ -14,7 +14,7 @@ public class GFrame {
     private String tempTitle;
     private long gameStartTime;
     private float tpf;
-    private int userfps = 0;    // Set it to zero for unlimited fps
+    private int userfps = 60;    // Set it to zero for unlimited fps
 
     public static String gameTitle;
     public static Dimension dimension;
@@ -22,6 +22,8 @@ public class GFrame {
 
     public static boolean fullscreen = false;
     public static boolean cursorVisible = false;
+    public static boolean running = true;
+    public static boolean paused = false;
 
     public static JFrame jFrame;
     public static Canvas canvas;
@@ -81,8 +83,7 @@ public class GFrame {
 
     public void start(){
         // Initialize game loop variabless
-        boolean running = true;
-        long interval = System.nanoTime();
+        long oneSecInterval = System.nanoTime();
         long loopStartTime, nextLoopTime = 0; // Requirs initialization for multiple data path
         long loopCount = 0;
         long fps = 0;
@@ -100,20 +101,21 @@ public class GFrame {
                 nextLoopTime = loopStartTime + (1000000000 / userfps);
             }
 
-            // Render logic
+            // Update the game
             Graphics2D g = (Graphics2D)bufferStrategy.getDrawGraphics();
-            update(tpf, g);
+            if(!paused)
+                update(tpf, g);
             g.dispose();
             bufferStrategy.show();
 
-            // Game loop counter Update
+            // Game loop counter
             loopCount++;
 
             // Game Title Update
-            if(System.nanoTime() - interval > 1000000000) {
+            if(System.nanoTime() - oneSecInterval > 1000000000) {
                 fps = loopCount;
                 loopCount = 0;
-                interval = System.nanoTime();
+                oneSecInterval = System.nanoTime();
             }
             tempTitle = tempTitle.concat(" FPS " + fps + " ; " + gameResourceList.size());
             jFrame.setTitle(tempTitle);
