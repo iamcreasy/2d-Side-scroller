@@ -6,16 +6,16 @@ import Engine.GameResource;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
+import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
 public class Box implements GameResource, KeyListener/*, MouseMotionListener */{
-    Random rand = new Random(System.nanoTime());
-    String name;
-    Color color;
-    boolean up, down, left, right;
-    float locX, locY, width, height, velocity;
+    private Random rand = new Random(System.nanoTime());
+    private String name;
+    private Color color;
+    private boolean up, down, left, right;
+    private float locX, locY, width, height, velocity;
+    Rectangle2D shape = new Rectangle2D.Float();
 
     public Box(){
         this.name = "Box";
@@ -40,7 +40,8 @@ public class Box implements GameResource, KeyListener/*, MouseMotionListener */{
     @Override
     public void update(float tpf, Graphics2D g) {
         g.setColor(color);
-        g.fillRect((int)locX, (int)locY, (int) width, (int) height);
+        shape.setRect((int)locX, (int)locY, (int) width, (int) height);
+        g.fill(shape);
 
 //        g.setColor(Color.BLACK);
 //        g.drawString((int)locX + "," + (int)locY, 0, 10); // Check, why I have to set it 0,10 instead of 0,0

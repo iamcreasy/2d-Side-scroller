@@ -2,6 +2,8 @@ package Game;
 
 import Engine.GFrame;
 
+import java.awt.*;
+
 public class GameMain {
     public static void main(String[] args) {
         GFrame game = new GFrame();

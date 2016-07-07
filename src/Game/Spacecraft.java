@@ -16,7 +16,7 @@ import java.io.File;
 public class Spacecraft implements GameResource, MouseMotionListener, MouseListener {
     private float mX, mY;
     private boolean firing=false;
-    GeneralPath craftPoly;
+    GeneralPath shape;
     int arc, width, height;
 
     GFrame game;
@@ -35,12 +35,12 @@ public class Spacecraft implements GameResource, MouseMotionListener, MouseListe
     @Override
     public void update(float tpf, Graphics2D g) {
         g.setColor(Color.RED);
-        craftPoly = new GeneralPath();
-        craftPoly.moveTo(mX-this.width/2, mY);
-        craftPoly.curveTo(mX-this.width/2, mY, mX, mY + this.arc, mX + this.width/2, mY);
-        craftPoly.lineTo(mX, mY-this.height/2);
-        craftPoly.lineTo(mX-this.width/2, mY);
-        g.fill(craftPoly);
+        shape = new GeneralPath();
+        shape.moveTo(mX-this.width/2, mY);
+        shape.curveTo(mX-this.width/2, mY, mX, mY + this.arc, mX + this.width/2, mY);
+        shape.lineTo(mX, mY-this.height/2);
+        shape.lineTo(mX-this.width/2, mY);
+        g.fill(shape);
         
         if(firing && System.currentTimeMillis() >= nextTime) {
             game.add(new Bullet(mX, mY));
@@ -78,16 +78,16 @@ public class Spacecraft implements GameResource, MouseMotionListener, MouseListe
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if(!firing) {
+//        if(!firing) {
             firing = true;
-        }
+//        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(firing) {
+//        if(firing) {
             firing = false;
-        }
+//        }
     }
 
     @Override

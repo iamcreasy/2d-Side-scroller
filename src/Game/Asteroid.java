@@ -7,19 +7,20 @@ import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
 public class Asteroid implements GameResource{
-    Random rand = new Random(System.nanoTime());
+    private Random rand = new Random(System.nanoTime());
+    private int locX, width, height;
+    private float locY, velocity;
+    private Color color;
     Rectangle2D shape = new Rectangle2D.Float();
-    int locX, width, height;
-    float locY, velocity;
-    Color color;
 
     public Asteroid() {
         locX = rand.nextInt(550);
         locY = rand.nextInt(600) - 600;     // -600 to ensure the spawn loc beyond the canvas height
         width = rand.nextInt(100);
         height = rand.nextInt(100);
-        color = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
         velocity = rand.nextInt(200);
+
+        color = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
     }
 
     @Override

@@ -11,22 +11,21 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GFrame {
-    public String gameTitle;
     private String tempTitle;
-
     private long gameStartTime;
     private float tpf;
-    private int userfps = 60;    // Set it to zero for unlimited fps
+    private int userfps = 0;    // Set it to zero for unlimited fps
 
+    public static String gameTitle;
     public static Dimension dimension;
-    private Dimension crtJfrmDim, crtCnvsDim;
+    public static Dimension crtJfrmDim, crtCnvsDim;
 
-    public boolean fullscreen = false;
-    public boolean cursorVisible = false;
+    public static boolean fullscreen = false;
+    public static boolean cursorVisible = false;
 
-    private JFrame jFrame;
-    public Canvas canvas;
-    BufferStrategy bufferStrategy;
+    public static JFrame jFrame;
+    public static Canvas canvas;
+    public static BufferStrategy bufferStrategy;
 
     public GFrame() {
         gameStartTime = System.nanoTime();

@@ -5,12 +5,12 @@ import java.awt.*;
 import java.util.Random;
 
 public class WindowedCanvasTest implements GameResource {
-    Random rand = new Random(10);
-    Dimension d;
-    int ay1, ax2;
-    int bx1, by2;
-    int cx1, cy2;
-    int dy1, dx2;
+    private Random rand = new Random(System.nanoTime());
+    private Dimension d;
+    private int ay1, ax2;
+    private int bx1, by2;
+    private int cx1, cy2;
+    private int dy1, dx2;
 
     public WindowedCanvasTest(Dimension d) {
         this.d = d;
