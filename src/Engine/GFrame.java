@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferStrategy;
-import java.util.ArrayList;
+import java.awt.image.BufferedImage;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GFrame {
@@ -21,6 +21,7 @@ public class GFrame {
     private Dimension crtJfrmDim, crtCnvsDim;
 
     public boolean fullscreen = false;
+    public boolean cursorVisible = false;
 
     private JFrame jFrame;
     public Canvas canvas;
@@ -63,10 +64,18 @@ public class GFrame {
             canvas.requestFocus();
         }
 
+        // set cursor invisible
+        if(!cursorVisible){
+            BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+            Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
+            jFrame.getContentPane().setCursor(blankCursor);
+        }
+
         // Setup BufferStrategy for canvas
         canvas.createBufferStrategy(2);
         bufferStrategy = canvas.getBufferStrategy();
 
+        // initial dummy value of tpf
         tpf = (float)(System.nanoTime() -  gameStartTime)/1000000000;
     }
 
