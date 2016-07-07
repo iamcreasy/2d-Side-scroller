@@ -16,6 +16,7 @@ public class GFrame {
 
     private long gameStartTime;
     private float tpf;
+    private int userfps = 60;    // Set it to zero for unlimited fps
 
     public static Dimension dimension;
     private Dimension crtJfrmDim, crtCnvsDim;
@@ -83,15 +84,22 @@ public class GFrame {
         // Initialize game loop variabless
         boolean running = true;
         long interval = System.nanoTime();
-        long loopStartTime;
+        long loopStartTime, nextLoopTime = 0; // Requirs initialization for multiple data path
         long loopCount = 0;
         long fps = 0;
+
+        if(userfps > 0){
+            tpf = (1000000000 / userfps)/(float)1000000000;
+        }
 
         // Game loop
         while (running){
             tempTitle = "";
             tempTitle = tempTitle.concat(gameTitle);
             loopStartTime = System.nanoTime();
+            if(userfps > 0) {
+                nextLoopTime = loopStartTime + (1000000000 / userfps);
+            }
 
             // Render logic
             Graphics2D g = (Graphics2D)bufferStrategy.getDrawGraphics();
@@ -111,7 +119,13 @@ public class GFrame {
             tempTitle = tempTitle.concat(" FPS " + fps + " ; " + gameResourceList.size());
             jFrame.setTitle(tempTitle);
 
-            tpf = (float)(System.nanoTime() - loopStartTime) / 1000000000;
+            if(userfps > 0) {
+                if(System.nanoTime() < nextLoopTime) {
+                    GFrameUtility.sleep((nextLoopTime - System.nanoTime()) / 1000000); // Convert nano sec to mili sec
+                }
+            } else {
+                tpf = (float) (System.nanoTime() - loopStartTime) / 1000000000;
+            }
         }
 
         // Cleanup
