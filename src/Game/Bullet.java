@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class Bullet implements GameResource{
-    Rectangle2D bulletShape = new Rectangle2D.Float();
+    Rectangle2D bulletShape;
     float locX, locY, velocity;
     Color color;
 
