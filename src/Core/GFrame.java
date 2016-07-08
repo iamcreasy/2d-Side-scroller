@@ -1,4 +1,4 @@
-package Engine;
+package Core;
 
 import javax.swing.*;
 import java.awt.*;
@@ -103,7 +103,7 @@ public class GFrame {
 
             // Update the game
             Graphics2D g = (Graphics2D)bufferStrategy.getDrawGraphics();
-            if(!paused)
+            if(!paused)         // If paused not update takes place, but the game loops still keeps running
                 update(tpf, g);
             g.dispose();
             bufferStrategy.show();

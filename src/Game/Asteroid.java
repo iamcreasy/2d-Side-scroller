@@ -1,6 +1,6 @@
 package Game;
 
-import Engine.GameResource;
+import Core.GameResource;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

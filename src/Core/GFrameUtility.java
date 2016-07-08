@@ -1,4 +1,4 @@
-package Engine;
+package Core;
 
 import java.awt.*;
 import java.math.BigInteger;

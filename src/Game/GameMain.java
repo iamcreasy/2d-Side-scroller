@@ -1,8 +1,6 @@
 package Game;
 
-import Engine.GFrame;
-
-import java.awt.*;
+import Core.GFrame;
 
 public class GameMain {
     public static void main(String[] args) {

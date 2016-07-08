@@ -1,7 +1,7 @@
 package Game;
 
-import Engine.GFrame;
-import Engine.GameResource;
+import Core.GFrame;
+import Core.GameResource;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
