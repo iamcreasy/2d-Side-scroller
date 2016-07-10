@@ -24,9 +24,10 @@ public class Asteroid implements GameObject, PhysicsObject {
         height = rand.nextInt(100)+15;
         locX = rand.nextInt(580) + 2;
         locY = - height;
-        velocity = rand.nextInt(250);
+        velocity = rand.nextInt(150);
 
         color = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
+//        color = Color.BLACK;
     }
 
     public void onDestroy(){

@@ -14,7 +14,7 @@ public class GFrame {
     private String tempTitle;
     private long gameStartTime;
     private float tpf;
-    private int userfps = 0;    // Set it to zero for unlimited fps
+    private int userfps = 60;    // Set it to zero for unlimited fps
 
     public static String gameTitle;
     public static Dimension dimension;

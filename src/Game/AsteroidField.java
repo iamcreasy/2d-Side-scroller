@@ -12,11 +12,11 @@ public class AsteroidField implements GameObject{
     PhysicsSpace physicsSpace;
 
     long startSpawnTime = System.currentTimeMillis();
-    public long spawnDelay = 25;        // asteroid spawn delay in milliseconds
+    public long spawnDelay = 100;        // asteroid spawn delay in milliseconds
     long nextSpawnTime = startSpawnTime + spawnDelay;
 
     public int asteroidPresent = 0;     // at the beginning of the game there is no Asteroid, hence initialized to Zero
-    public int asteroidLimit = 250;      // max number of asteroids allowed to spawn
+    public int asteroidLimit = 65;      // max number of asteroids allowed to spawn
     public Asteroid asteroid;
 
     // GFrame and PhysicsSpace reference is needed to dynamically update their object list

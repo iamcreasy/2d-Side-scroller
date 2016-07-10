@@ -33,7 +33,7 @@ public class Spacecraft implements GameObject{
     }
 
     long startTime = System.currentTimeMillis();
-    long bulletInterval = 0;   // bullet interval in nanosecs
+    long bulletInterval = 100;   // bullet interval in nanosecs
     long nextTime = startTime;
 
     @Override

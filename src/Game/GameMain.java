@@ -19,7 +19,6 @@ public class GameMain {
 //            boxes[i] = new Box();
 //        game.add(boxes);
 
-        GFrameUtility.fib(5000);
         PhysicsSpace physicsSpace = new PhysicsSpace();
         physicsSpace.sourceCheckCollisionAgainst("Bullet", "Asteroid");
 
