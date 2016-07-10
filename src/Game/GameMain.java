@@ -1,28 +1,36 @@
 package Game;
 
 import Core.GFrame;
+import Core.GFrameUtility;
+import Physics.PhysicsSpace;
+
+import java.awt.*;
 
 public class GameMain {
     public static void main(String[] args) {
         GFrame game = new GFrame();
+        // init creates the canvas and window based on GFrame static properties
+        game.init();
 
-//        Box b = new Box("Box", 100, 100, 100, 100, Color.RED, 100);
-//        game.add(b);
-//        game.canvas.addKeyListener(b);
-//        game.canvas.addMouseMotionListener(b);
 //        game.add(new WindowedCanvasTest(GFrame.dimension));
 
 //        Box[] boxes = new Box[1000];
 //        for(int i = 0 ; i<boxes.length; i++)
 //            boxes[i] = new Box();
-//
 //        game.add(boxes);
 
-//        game.add(new Asteroid());
+        GFrameUtility.fib(5000);
+        PhysicsSpace physicsSpace = new PhysicsSpace();
+        physicsSpace.sourceCheckCollisionAgainst("Bullet", "Asteroid");
 
-        game.add(AsteroidField.generateField(500));
+        AsteroidField asteroidField = new AsteroidField(game, physicsSpace);
+        game.add(asteroidField);
 
-        game.add(new Spacecraft(game)); // Rough : Using CopyOnWriteArrayList to avoid concurrentmodificationexception
+        Spacecraft spacecraft = new Spacecraft(game, physicsSpace);
+        spacecraft.addEventListener(new SpacecraftMouseListener(spacecraft));
+        game.add(spacecraft);
+
+        game.add(physicsSpace);
 
         game.start();
     }
