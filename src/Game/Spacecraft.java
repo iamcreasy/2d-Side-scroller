@@ -35,10 +35,10 @@ public class Spacecraft extends GameObject{
         
         this.game = game;
         this.physicsSpace = physicsSpace;
-        this.arc = 25;
+        this.arc = 25;                              // spacecraft arc, default:25(half of width)
         this.mouseDown = false;
         this.startTime = System.currentTimeMillis();
-        this.bulletInterval = 100;
+        this.bulletInterval = 15;                  // interval between successive bullet, default:100,
         nextTime = startTime + bulletInterval;
     }
 
@@ -66,7 +66,7 @@ public class Spacecraft extends GameObject{
             startTime = System.currentTimeMillis();
             nextTime = startTime + bulletInterval;
 
-            fireSound();
+//            fireSound();
         }
 
         // Cycle through list to Remove Bullet

@@ -15,6 +15,7 @@ public class PhysicsSpace extends GameObject{
     ArrayList<PhysicsObject> sourceList = new ArrayList<>();
     ArrayList<PhysicsObject> checkAgainstList = new ArrayList<>();;
 
+    // Objects are also added to physicsObjectList when they are added to gameObjectList
     public void add(PhysicsObject physicsObject){
        if(physicsObject instanceof PhysicsObject)
            physicsObjectsList.add(physicsObject);
@@ -59,12 +60,13 @@ public class PhysicsSpace extends GameObject{
         for(int i = 0; i<sourceList.size();i++)
             for(int j = 0; j<checkAgainstList.size(); j++) {
                 if(checkCollision(sourceList.get(i), checkAgainstList.get(j))) {
+
                     // If collision is positive
                     // Astoroid : color the checkAgainstList memeber Red, and set alive to True, and play the sound
                     // Bullet : set the bullet alive property to true
                     ((Asteroid) checkAgainstList.get(j)).color = Color.RED;
                     ((Asteroid) checkAgainstList.get(j)).alive = false;
-                    ((Asteroid) checkAgainstList.get(j)).onDestroySound();
+//                    ((Asteroid) checkAgainstList.get(j)).onDestroySound();
                     ((Bullet) sourceList.get(i)).alive = false;
                 }
             }

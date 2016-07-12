@@ -25,13 +25,14 @@ public class Asteroid extends GameObject implements PhysicsObject {
 
         this.name = "AsteroidName";
         this.locX = rand.nextInt((int) (GFrame.dimension.getWidth() - 20)) + 2;
-        this.height = rand.nextInt(100)+15;
-        this.width = rand.nextInt(100);
+        this.height = rand.nextInt(110);        // default:rand.nextInt(100) + 15
+        this.width = rand.nextInt(110);         // default:100
         this.locY =  - height;
         this.tag = "Asteroid";
 
         this.color = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
-        this.velocity = rand.nextInt(150);
+        this.color = Color.BLACK;
+        this.velocity = rand.nextInt(250);           // velocity of falling asteroids, default:150
         this.alive = true;
         this.shape  = new Rectangle2D.Float();
     }

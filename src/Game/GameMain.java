@@ -25,7 +25,7 @@ public class GameMain {
 //        game.add(boxes);
 
         PhysicsSpace physicsSpace = new PhysicsSpace();
-        physicsSpace.sourceCheckCollisionAgainst("Spacecraft", "Asteroid");
+        physicsSpace.sourceCheckCollisionAgainst("Bullet", "Asteroid");
 
         AsteroidField asteroidField = new AsteroidField(game, physicsSpace);
         game.add(asteroidField);
