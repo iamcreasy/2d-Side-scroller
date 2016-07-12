@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.Random;
 
-public class WindowedCanvasTest implements GameObject {
-    private Random rand = new Random(System.nanoTime());
+public class WindowedCanvasTest extends GameObject {
     private Dimension d;
     private int ay1, ax2;
     private int bx1, by2;
@@ -60,10 +59,5 @@ public class WindowedCanvasTest implements GameObject {
         dx2 -= 1;
         if(dy1 == (int)d.getHeight()-1) dy1 = (int)d.getHeight()/2-1;
         if(dx2 == (int)d.getWidth()/2-1) dx2 = (int)d.getWidth()-1;
-    }
-
-    @Override
-    public ArrayList<EventListener> getEventListeners() {
-        return null;
     }
 }

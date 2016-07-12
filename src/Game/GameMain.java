@@ -9,18 +9,23 @@ import java.awt.*;
 public class GameMain {
     public static void main(String[] args) {
         GFrame game = new GFrame();
-        // init creates the canvas and window based on GFrame static properties
+        GFrame.cursorVisible = false;
+        GFrame.userfps = 60;
+        // set settings before calling init method
         game.init();
 
 //        game.add(new WindowedCanvasTest(GFrame.dimension));
-
+//
 //        Box[] boxes = new Box[1000];
-//        for(int i = 0 ; i<boxes.length; i++)
+//        for(int i = 0 ; i<boxes.length; i++) {
 //            boxes[i] = new Box();
+//            boxes[i].addEventListener(new BoxKeyListener(boxes[i]));
+//            boxes[i].addEventListener(new BoxMouseListener(boxes[i]));
+//        }
 //        game.add(boxes);
 
         PhysicsSpace physicsSpace = new PhysicsSpace();
-        physicsSpace.sourceCheckCollisionAgainst("Bullet", "Asteroid");
+        physicsSpace.sourceCheckCollisionAgainst("Spacecraft", "Asteroid");
 
         AsteroidField asteroidField = new AsteroidField(game, physicsSpace);
         game.add(asteroidField);

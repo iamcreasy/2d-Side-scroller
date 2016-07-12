@@ -10,38 +10,46 @@ import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.Random;
 
-public class Box implements GameObject, PhysicsObject {
-    public String tag = "Player";
-    public ArrayList<EventListener> eventListeners = new ArrayList<>();
+public class Box extends GameObject implements PhysicsObject {
+    private static Random rand = new Random(System.nanoTime()); // Static is needed to use it with super(rand.nextInt)
 
-    private Random rand = new Random(System.nanoTime());
-    public String name;
+    public Rectangle2D shape;
     public Color color;
-
+    public boolean alive;
     public boolean up, down, left, right;
-    public float locX, locY, width, height, velocity;
-    public boolean alive = true;
-    public Rectangle2D shape = new Rectangle2D.Float();
+    public float velocity;
 
     // Default Constructor
     public Box(){
-        this.name = "Box";
+        super("BoxName",
+                rand.nextInt((int)GFrame.dimension.getWidth()),
+                rand.nextInt((int)GFrame.dimension.getHeight()),
+                rand.nextInt(100),
+                rand.nextInt(100),
+                "BoxTag");
+
+        this.shape = new Rectangle2D.Float();
         this.color = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
-        this.locX = rand.nextInt((int)GFrame.dimension.getWidth());
-        this.locY = rand.nextInt((int)GFrame.dimension.getHeight());
-        this.width = rand.nextInt(100);
-        this.height = rand.nextInt(100);
+        this.alive = true;
+        this.up = this.down = this.left = this.right = false;
         this.velocity = rand.nextInt(1000);
     }
 
     // Custom Box Constructor
-    public Box(String name, float locX, float locY, float width, float height, Color color, float velocity) {
+    public Box(String name, float locX, float locY, float width, float height, Color color, float velocity, String tag) {
+        super();
+
         this.name = name;
-        this.color = color;
         this.locX = locX;
         this.locY = locY;
         this.width = width;
         this.height = height;
+        this.tag = "Untagged";
+
+        this.shape = new Rectangle2D.Float();
+        this.color = color;
+        this.alive = true;
+        this.up = this.down = this.left = this.right = false;
         this.velocity = velocity;
     }
 
@@ -70,13 +78,7 @@ public class Box implements GameObject, PhysicsObject {
         }
     }
 
-    public void addEventListener(EventListener eventListener){
-        eventListeners.add(eventListener);
-    }
 
-    public ArrayList<EventListener> getEventListeners(){
-        return eventListeners;
-    }
 
     // PhysicsObject Interface
     @Override

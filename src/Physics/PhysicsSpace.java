@@ -1,5 +1,6 @@
 package Physics;
 
+import Core.GFrame;
 import Core.GameObject;
 import Game.Asteroid;
 import Game.Bullet;
@@ -8,8 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class PhysicsSpace implements GameObject {
-
+public class PhysicsSpace extends GameObject{
     String sourceTag, checkAgainstTag;
     public CopyOnWriteArrayList<PhysicsObject> physicsObjectsList = new CopyOnWriteArrayList<>();
     ArrayList<PhysicsObject> sourceList = new ArrayList<>();
@@ -38,7 +38,6 @@ public class PhysicsSpace implements GameObject {
         this.checkAgainstTag = checkAgainstTag;
     }
 
-    @Override
     public void update(float tpf, Graphics2D g) {
         sourceList.clear();
         checkAgainstList.clear();
@@ -65,7 +64,7 @@ public class PhysicsSpace implements GameObject {
                     // Bullet : set the bullet alive property to true
                     ((Asteroid) checkAgainstList.get(j)).color = Color.RED;
                     ((Asteroid) checkAgainstList.get(j)).alive = false;
-                    ((Asteroid) checkAgainstList.get(j)).onDestroy();
+                    ((Asteroid) checkAgainstList.get(j)).onDestroySound();
                     ((Bullet) sourceList.get(i)).alive = false;
                 }
             }

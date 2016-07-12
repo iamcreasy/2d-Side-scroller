@@ -14,58 +14,59 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.EventListener;
 
-public class Spacecraft implements GameObject{
-    public boolean mouseDown =false;
-    public GeneralPath shape;
-    public int arc, width, height;
-    public ArrayList<EventListener> eventListeners = new ArrayList<>();
-    public Bullet bullet;
-
+public class Spacecraft extends GameObject{
     GFrame game;
     PhysicsSpace physicsSpace;
+    public float arc;
+    public Bullet bullet;
+    public boolean mouseDown;
+    public GeneralPath shape;
+    long startTime, bulletInterval, nextTime;
+
     Spacecraft(GFrame game, PhysicsSpace physicsSpace){
-        this.game = game;
-        this.physicsSpace = physicsSpace;
+        super();
         
+        this.name = "SpacecraftName";
+        this.locX = GFrame.mX;
+        this.locY = GFrame.mY;
         this.width = 50;
         this.height = 50;
+        this.tag = "Spacecraft";
+        
+        this.game = game;
+        this.physicsSpace = physicsSpace;
         this.arc = 25;
+        this.mouseDown = false;
+        this.startTime = System.currentTimeMillis();
+        this.bulletInterval = 100;
+        nextTime = startTime + bulletInterval;
     }
-
-    long startTime = System.currentTimeMillis();
-    long bulletInterval = 100;   // bullet interval in nanosecs
-    long nextTime = startTime;
 
     @Override
     public void update(float tpf, Graphics2D g) {
+        locX = GFrame.mX;
+        locY = GFrame.mY;
+        
         // Draw SpaceCraft
         g.setColor(Color.RED);
         shape = new GeneralPath();
-        shape.moveTo(GFrame.mX - this.width / 2, GFrame.mY);
-        shape.curveTo(GFrame.mX - this.width / 2, GFrame.mY, GFrame.mX, GFrame.mY + this.arc, GFrame.mX + this.width / 2, GFrame.mY);
-        shape.lineTo(GFrame.mX , GFrame.mY - this.height / 2);
-        shape.lineTo(GFrame.mX - this.width / 2, GFrame.mY);
+        shape.moveTo(locX - this.width / 2, locY);
+        shape.curveTo(locX - this.width / 2,  locY,   locX, locY + this.arc,   locX + this.width / 2, locY);
+        shape.lineTo(locX , locY - this.height / 2);
+        shape.lineTo(locX - this.width / 2, locY);
         g.fill(shape);
 
         // Add bullet
         g.setColor(Color.RED);
         if(mouseDown && System.currentTimeMillis() >= nextTime) {
-            bullet = new Bullet(GFrame.mX, GFrame.mY);
+            bullet = new Bullet(locX, locY);
             game.add(bullet);
             physicsSpace.add(bullet);
 
             startTime = System.currentTimeMillis();
             nextTime = startTime + bulletInterval;
 
-            // Rough 'fire' audio playback Code
-//            try {
-//                Clip clip = AudioSystem.getClip();
-//                AudioInputStream ais = AudioSystem.getAudioInputStream(new File("./Resources/bullet.wav"));
-//                clip.open(ais);
-//                clip.start();
-//            }catch (Exception e){
-//                System.out.println("Error occured during audio playback.");
-//            }
+            fireSound();
         }
 
         // Cycle through list to Remove Bullet
@@ -88,13 +89,14 @@ public class Spacecraft implements GameObject{
             }
     }
 
-    @Override
-    public void addEventListener(EventListener eventListener){
-        eventListeners.add(eventListener);
-    }
-
-    @Override
-    public ArrayList<EventListener> getEventListeners() {
-        return eventListeners;
+    public void fireSound(){
+            try {
+                Clip clip = AudioSystem.getClip();
+                AudioInputStream ais = AudioSystem.getAudioInputStream(new File("./Resources/bullet.wav"));
+                clip.open(ais);
+                clip.start();
+            }catch (Exception e){
+                System.out.println("Error occured during audio playback.");
+            }
     }
 }

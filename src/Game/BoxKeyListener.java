@@ -3,9 +3,6 @@ package Game;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-/**
- * Created by iamcr on 7/8/2016.
- */
 public class BoxKeyListener implements KeyListener {
     Box box;
 

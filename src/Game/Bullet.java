@@ -8,18 +8,26 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.EventListener;
 
-public class Bullet implements GameObject, PhysicsObject {
-    public String tag = "Bullet";
-    public boolean alive = true;
-    Rectangle2D shape = new Rectangle2D.Float();
-    private float locX, locY, velocity;
+public class Bullet extends GameObject implements PhysicsObject {
     private Color color;
+    private float velocity;
+    public boolean alive;
+    Rectangle2D shape;
 
     public Bullet(float locX, float locY) {
+        super();
+
+        this.name = "BulletName";
         this.locX = locX;
         this.locY = locY;
+        this.width = 6;
+        this.height = 15;
+        this.tag = "Bullet";
+
         this.color = Color.RED;
         this.velocity = 500f;
+        this.alive = true;
+        this.shape = new Rectangle2D.Float();
     }
 
     // GameObject Interface
@@ -27,7 +35,7 @@ public class Bullet implements GameObject, PhysicsObject {
     public void update(float tpf, Graphics2D g) {
         g.setColor(color);
 
-        shape.setRect(locX-3, locY-40, 6, 15);  // 3 and 40 are the fix to move the firing location
+        shape.setRect(locX-3, locY-40, width, height);  // Adjustment of fire starting point
         g.fill(shape);
 
         locY = locY - velocity * tpf;

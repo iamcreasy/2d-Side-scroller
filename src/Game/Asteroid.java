@@ -1,5 +1,6 @@
 package Game;
 
+import Core.GFrame;
 import Core.GameObject;
 import Physics.PhysicsObject;
 
@@ -11,34 +12,28 @@ import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.util.Random;
 
-public class Asteroid implements GameObject, PhysicsObject {
-    public String tag = "Asteroid";
-    public Random rand = new Random(System.nanoTime());
-    public float locX, locY, width, height, velocity;
+public class Asteroid extends GameObject implements PhysicsObject {
     public Color color;
-    public boolean alive = true;
-    Rectangle2D shape = new Rectangle2D.Float();
+    public float velocity;
+    public boolean alive;
+    Rectangle2D shape;
+
+    public Random rand = new Random(System.nanoTime());
 
     public Asteroid() {
-        width = rand.nextInt(100);
-        height = rand.nextInt(100)+15;
-        locX = rand.nextInt(580) + 2;
-        locY = - height;
-        velocity = rand.nextInt(150);
+        super();
 
-        color = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
-//        color = Color.BLACK;
-    }
+        this.name = "AsteroidName";
+        this.locX = rand.nextInt((int) (GFrame.dimension.getWidth() - 20)) + 2;
+        this.height = rand.nextInt(100)+15;
+        this.width = rand.nextInt(100);
+        this.locY =  - height;
+        this.tag = "Asteroid";
 
-    public void onDestroy(){
-//        try {
-//            Clip clip = AudioSystem.getClip();
-//            AudioInputStream ais = AudioSystem.getAudioInputStream(new File("./Resources/hit.wav"));
-//            clip.open(ais);
-//            clip.start();
-//        }catch (Exception e){
-//            System.out.println("Error occured during audio playback.");
-//        }
+        this.color = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
+        this.velocity = rand.nextInt(150);
+        this.alive = true;
+        this.shape  = new Rectangle2D.Float();
     }
 
     // GameObject Interface
@@ -58,12 +53,12 @@ public class Asteroid implements GameObject, PhysicsObject {
         g.fill(shape);
     }
 
+    // PhysicsObject Interface
     @Override
     public String getTag(){
-        return tag;
+        return this.tag;
     }
 
-    // PhysicsObject Interface
     @Override
     public GameObject getGameObject() {
         return this;
@@ -87,5 +82,17 @@ public class Asteroid implements GameObject, PhysicsObject {
     @Override
     public float getLocY() {
         return locY;
+    }
+
+
+    public void onDestroySound(){
+        try {
+            Clip clip = AudioSystem.getClip();
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new File("./Resources/hit.wav"));
+            clip.open(ais);
+            clip.start();
+        }catch (Exception e){
+            System.out.println("Error occured during audio playback.");
+        }
     }
 }

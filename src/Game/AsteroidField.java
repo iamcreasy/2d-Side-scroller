@@ -7,7 +7,7 @@ import Physics.PhysicsSpace;
 
 import java.awt.*;
 
-public class AsteroidField implements GameObject{
+public class AsteroidField extends GameObject{
     GFrame game;
     PhysicsSpace physicsSpace;
 
@@ -21,6 +21,8 @@ public class AsteroidField implements GameObject{
 
     // GFrame and PhysicsSpace reference is needed to dynamically update their object list
     public AsteroidField(GFrame game, PhysicsSpace physicsSpace) {
+        super();
+
         this.game = game;
         this.physicsSpace = physicsSpace;
     }
@@ -53,6 +55,7 @@ public class AsteroidField implements GameObject{
                 } else {
 
                     // When the asteroid has been hit
+
                     if(((Asteroid) game.getGameObjectList().get(i)).getShape().getBounds().getHeight() < 10) {
                         physicsSpace.remove((PhysicsObject) game.getGameObjectList().get(i));
                         game.getGameObjectList().remove(i);
