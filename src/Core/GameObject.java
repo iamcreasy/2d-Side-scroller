@@ -9,31 +9,76 @@ public class GameObject {
     Random rand = new Random(System.nanoTime());
     public String name;
     public float locX, locY, width, height;
-    public String tag;          // Tag is find similar objects; Tag is to group objects
-    public ArrayList<EventListener> eventListeners = new ArrayList<>(); // This initialization is good enough
+    public String tag;                              // Tag is find similar objects; Tag is to group objects
+    public ArrayList<EventListener> eventListeners;
 
     public GameObject(){
-        this.name = "Unnamed";
-        this.locX = rand.nextInt((int)GFrame.dimension.getWidth());
-        this.locY = rand.nextInt((int)GFrame.dimension.getWidth());
-        this.width = 100;
-        this.height = 100;
-        this.tag = "Untagged";
+        setName("Unnamed");
+        setLocX(rand.nextInt((int)GFrame.dimension.getWidth()));
+        setLocY(rand.nextInt((int)GFrame.dimension.getWidth()));
+        setWidth(100);
+        setHeight(100);
+        setTag("Untagged");
+        eventListeners = new ArrayList<>();
     }
 
     public GameObject(String name, float locX, float locY, float width, float height, String tag) {
+        setName(name);
+        setLocX(locX);
+        setLocY(locY);
+        setWidth(width);
+        setHeight(height);
+        setTag(tag);
+        eventListeners = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public float getLocX() {
+        return locX;
+    }
+
+    public void setLocX(float locX) {
         this.locX = locX;
+    }
+
+    public float getLocY() {
+        return locY;
+    }
+
+    public void setLocY(float locY) {
         this.locY = locY;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
         this.width = width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
         this.height = height;
-        this.tag = tag;
+    }
+
+    public String getTag() {
+        return tag;
     }
 
     public void setTag(String tag){
         this.tag = tag;
     }
-    public String getTag(String tag) { return this.tag; }
 
     public void addEventListener(EventListener eventListener){
         eventListeners.add(
