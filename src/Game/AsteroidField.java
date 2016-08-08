@@ -8,16 +8,16 @@ import Physics.PhysicsSpace;
 import java.awt.*;
 
 public class AsteroidField extends GameObject{
-    GFrame game;
-    PhysicsSpace physicsSpace;
+    private final GFrame game;
+    private final PhysicsSpace physicsSpace;
 
-    long startSpawnTime = System.currentTimeMillis();
-    public long spawnDelay = 10;        // asteroid spawn delay in milliseconds, default:100 ,
-    long nextSpawnTime = startSpawnTime + spawnDelay;
+    private Asteroid asteroid;
+    public int asteroidPresent;                          // at the beginning of the game there is no Asteroid, hence initialized to Zero
+    public int asteroidLimit;                         // max number of asteroids allowed to spawn, default:65 ,
 
-    public int asteroidPresent = 0;     // at the beginning of the game there is no Asteroid, hence initialized to Zero
-    public int asteroidLimit = 250;      // max number of asteroids allowed to spawn, default:65 ,
-    public Asteroid asteroid;
+    private long startSpawnTime = System.currentTimeMillis();
+    private long spawnDelay;                             // asteroid spawn delay in milliseconds, default:100 ,
+    private long nextSpawnTime = startSpawnTime + spawnDelay;
 
     // GFrame and PhysicsSpace reference is needed to dynamically update their object list
     public AsteroidField(GFrame game, PhysicsSpace physicsSpace) {
@@ -25,6 +25,9 @@ public class AsteroidField extends GameObject{
 
         this.game = game;
         this.physicsSpace = physicsSpace;
+
+        setAsteroidLimit(250);
+        setSpawnDelay(10);
     }
 
     @Override
@@ -63,5 +66,21 @@ public class AsteroidField extends GameObject{
                     }
                 }
             }
+    }
+
+    public long getSpawnDelay() {
+        return spawnDelay;
+    }
+
+    public void setSpawnDelay(long spawnDelay) {
+        this.spawnDelay = spawnDelay;
+    }
+
+    public int getAsteroidLimit() {
+        return asteroidLimit;
+    }
+
+    public void setAsteroidLimit(int asteroidLimit) {
+        this.asteroidLimit = asteroidLimit;
     }
 }

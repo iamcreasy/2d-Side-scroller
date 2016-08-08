@@ -66,7 +66,7 @@ public class Spacecraft extends GameObject{
             startTime = System.currentTimeMillis();
             nextTime = startTime + bulletInterval;
 
-//            fireSound();
+            fireSound();
         }
 
         // Cycle through list to Remove Bullet

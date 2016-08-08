@@ -66,7 +66,7 @@ public class PhysicsSpace extends GameObject{
                     // Bullet : set the bullet alive property to true
                     ((Asteroid) checkAgainstList.get(j)).color = Color.RED;
                     ((Asteroid) checkAgainstList.get(j)).alive = false;
-//                    ((Asteroid) checkAgainstList.get(j)).onDestroySound();
+                    ((Asteroid) checkAgainstList.get(j)).onDestroySound();
                     ((Bullet) sourceList.get(i)).alive = false;
                 }
             }

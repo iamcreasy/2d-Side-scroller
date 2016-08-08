@@ -13,7 +13,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class GFrame {
     private String tempTitle;
     private long gameStartTime;
-    private float tpf;
+    private float tpf;                  // time per frame is the time in seconds it took to render the last frame.
     public static int userfps = 60;    // Set it to zero for unlimited fps
 
     public static String gameTitle;
