@@ -1,12 +1,14 @@
 # 2d-Side-scroller
 2d Side scrolling game framework
 
-# How to compiler
+# How to compile and run
 First clone the repo
 `$ git clone https://github.com/iamcreasy/2d-Side-scroller.git`
 
-This java program uses gradle build system. To invoke the build and run,
-`$ ./gradlew`
+This java program uses gradle build system. To invoke the build run,
+On GNU/Linux or macOS `$ ./gradlew`
+On Windows `>gradlew`
+If build is successful Gradle will run the game automatically.
 
 You might need to allow execution of the file with `chmod +x gradlew` command.
 
